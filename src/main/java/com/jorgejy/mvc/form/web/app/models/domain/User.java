@@ -1,8 +1,13 @@
 package com.jorgejy.mvc.form.web.app.models.domain;
 
+import javax.validation.constraints.NotEmpty;
+
 public class User {
+	@NotEmpty
 	private String username;
+	@NotEmpty
 	private String password;
+	@NotEmpty
 	private String email;
 
 	public String getUsername() {
