@@ -1,12 +1,20 @@
 package com.jorgejy.mvc.form.web.app.models.domain;
 
+import java.util.Date;
+
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.jorgejy.mvc.form.web.app.validators.IdentifierRegex;
+import com.jorgejy.mvc.form.web.app.validators.Required;
 
 public class User {
 	// \\d = [0-9]
@@ -14,7 +22,7 @@ public class User {
 	@IdentifierRegex
 	private String id;
 	@NotBlank
-	@Size(min = 3, max=8)
+	@Size(min = 3, max = 8)
 	private String username;
 	@NotEmpty
 	private String password;
@@ -24,9 +32,28 @@ public class User {
 	private String email;
 	// @NotEmpty ( message = "El nombre no puede ser vacio")
 	private String name;
-	@NotEmpty
+	// @NotEmpty
+	@Required
 	private String firstName;
-	
+
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	// defaul yyyy/MM/dd
+	private Date birthday;
+
+	@NotNull
+	@Min(5)
+	@Max(5000)
+	private Integer count;
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -74,5 +101,13 @@ public class User {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
 }

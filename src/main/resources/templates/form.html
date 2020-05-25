@@ -64,6 +64,21 @@
 		</div>
 
 		<div>
+			<label for="count">Cuenta</label>
+			<div>
+				<input type="number" id="count" th:field="*{count}">
+			</div>
+			<div th:if="${#fields.hasErrors('count')}" th:errors="*{count}"></div>
+		</div>
+
+		<div>
+			<label for="birthday">Fecha nacimiento</label>
+			<div>
+				<input type="text" id="birthday" th:field="*{birthday}" placeholder="yyyy-MM-dd">
+			</div>
+			<div th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></div>
+		</div>
+		<div>
 			<input type="submit" value="Send">
 		</div>
 	</form>
