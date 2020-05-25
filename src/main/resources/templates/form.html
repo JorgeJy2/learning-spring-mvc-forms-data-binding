@@ -9,6 +9,14 @@
 	<form th:action="@{/form-model}" method="post" th:object="${user}">
 
 		<div>
+			<label for="id">id</label>
+			<div>
+				<input type="text" id="id" th:field="*{id}">
+			</div>
+			<div th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></div>
+		</div>
+
+		<div>
 			<label for="name">Name</label>
 			<div>
 				<input type="text" id="name" th:field="*{name}">
@@ -21,7 +29,8 @@
 			<div>
 				<input type="text" id="firstName" th:field="*{firstName}">
 			</div>
-			<div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+			<div th:if="${#fields.hasErrors('firstName')}"
+				th:errors="*{firstName}"></div>
 		</div>
 
 
@@ -49,7 +58,7 @@
 		<div>
 			<label for="email">email</label>
 			<div>
-				<input type="email" id="email" th:field="*{email}">
+				<input type="text" id="email" th:field="*{email}">
 			</div>
 			<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
 		</div>
