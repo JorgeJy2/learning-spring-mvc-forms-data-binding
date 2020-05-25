@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +27,11 @@ public class FormController {
 
 	@Autowired
 	private UserValidator userValidator;
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.addValidators(userValidator);
+	}
 	
 	@GetMapping("/form")
 	public String form(Model model) {
@@ -67,7 +74,7 @@ public class FormController {
 			Model model,
 			SessionStatus sessionStatus // manager session 
 			) {
-		userValidator.validate(user, bindingResult);
+		// userValidator.validate(user, bindingResult);
 		
 		if(bindingResult.hasErrors()) {
 //			Map<String, String> errors = new HashMap<String, String>();

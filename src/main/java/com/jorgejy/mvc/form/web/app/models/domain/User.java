@@ -1,20 +1,25 @@
 package com.jorgejy.mvc.form.web.app.models.domain;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.jorgejy.mvc.form.web.app.validators.IdentifierRegex;
+
 public class User {
 	// \\d = [0-9]
 	// @Pattern(regexp = "[0-9]{2}[.][\\d]{3}[.][\\d]{3}[-][A-Z]{1}")
+	@IdentifierRegex
 	private String id;
-	@NotEmpty
+	@NotBlank
 	@Size(min = 3, max=8)
 	private String username;
 	@NotEmpty
 	private String password;
-	@NotEmpty
+	// @NotEmpty
+	@NotBlank
 	@Email(message = "Correo con formato inválido")
 	private String email;
 	// @NotEmpty ( message = "El nombre no puede ser vacio")
