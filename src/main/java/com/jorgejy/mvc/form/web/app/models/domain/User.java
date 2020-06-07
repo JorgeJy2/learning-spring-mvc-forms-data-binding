@@ -2,16 +2,15 @@ package com.jorgejy.mvc.form.web.app.models.domain;
 
 import java.util.Date;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.jorgejy.mvc.form.web.app.validators.IdentifierRegex;
 import com.jorgejy.mvc.form.web.app.validators.Required;
@@ -36,8 +35,11 @@ public class User {
 	@Required
 	private String firstName;
 
+	// INPUT DATE HTML 5 SEND DATE IN FORMAT yyyy/MM/dd
 	@NotNull
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	// @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Past
+	//@Future
 	// defaul yyyy/MM/dd
 	private Date birthday;
 
@@ -45,6 +47,10 @@ public class User {
 	@Min(5)
 	@Max(5000)
 	private Integer count;
+	// @NotEmpty
+	//@Valid
+	@NotNull
+	private Country country;
 
 	public Integer getCount() {
 		return count;
@@ -110,4 +116,13 @@ public class User {
 		this.birthday = birthday;
 	}
 
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
+	}
+
+	
 }

@@ -8,40 +8,6 @@
 
 	<form th:action="@{/form-model}" method="post" th:object="${user}">
 
-
-		<!-- <div>
-			<label for="country">País</label>
-			<div>
-				<select id="country" th:field="*{country}">
-				<option value="">Selecionar país</option>
-					<option th:each="country: ${countries}" th:text="${country}" th:value="${country}"></option>
-				</select>
-			</div>
-			<div th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></div>
-		</div> -->
-		
-		<!-- <div>
-			<label for="country">País</label>
-			<div>
-				<select id="country" th:field="*{country}">
-				<option value="">Selecionar país</option>
-					<option th:each="country: ${mapCountries.entrySet()}" th:text="${country.value}" th:value="${country.key}"></option>
-				</select>
-			</div>
-			<div th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></div>
-		</div> -->
-
-		<div>
-			<label for="country">País</label>
-			<div>
-				<select id="country " th:field="*{country}">
-					<option value="">Selecionar país</option>
-					<option th:each="country: ${listCountries}" th:text="${country.name}" th:value="${country.id}"></option>
-				</select>
-			</div>
-			<div th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></div>
-		</div>
-
 		<div>
 			<label for="id">id</label>
 			<div>
@@ -108,8 +74,7 @@
 		<div>
 			<label for="birthday">Fecha nacimiento</label>
 			<div>
-				<input type="date" id="birthday" th:field="*{birthday}"
-					placeholder="yyyy-MM-dd">
+				<input type="text" id="birthday" th:field="*{birthday}" placeholder="yyyy-MM-dd">
 			</div>
 			<div th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></div>
 		</div>

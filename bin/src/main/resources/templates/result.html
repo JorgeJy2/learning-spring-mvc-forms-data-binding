@@ -6,7 +6,9 @@
 </head>
 <body>
 	<h1>Result</h1>
+
 	<ul>
+
 		<li th:text="${user.name}"></li>
 		<li th:text="${user.firstName}"></li>
 		<li th:text="${user.username}"></li>
@@ -14,11 +16,7 @@
 		<li th:text="${user.email}"></li>
 		<li th:text="${user.id}"></li>
 		<li th:text="${user.count}"></li>
-		<li th:text="${#calendars.format(user.birthday, 'dd-MM-yyyy')}"></li>
-		<li th:text="${user.country.id}"></li>
-		<li th:text="${user.country.code}"></li>
-		<li th:text="${user.country.name}"></li>
-		
+		<li th:text="${user.birthday}"></li>
 	</ul>
 
 </body>
