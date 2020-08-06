@@ -1,6 +1,7 @@
 package com.jorgejy.mvc.form.web.app.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,14 +21,18 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.jorgejy.mvc.form.web.app.editors.CountryPropertyEditor;
 import com.jorgejy.mvc.form.web.app.editors.NameUpperCaseEditor;
+import com.jorgejy.mvc.form.web.app.editors.RolPropertyEditor;
 import com.jorgejy.mvc.form.web.app.models.domain.Country;
+import com.jorgejy.mvc.form.web.app.models.domain.Rol;
 import com.jorgejy.mvc.form.web.app.models.domain.User;
 import com.jorgejy.mvc.form.web.app.services.CountryService;
+import com.jorgejy.mvc.form.web.app.services.RolService;
 import com.jorgejy.mvc.form.web.app.validators.UserValidator;
 
 @Controller
@@ -41,7 +46,13 @@ public class FormController {
 	private CountryService countryService;
 	
 	@Autowired
+	private RolService rolService;
+	
+	@Autowired
 	private CountryPropertyEditor countryPropertyEditor;
+	
+	@Autowired
+	private RolPropertyEditor rolPropertyEditor;
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -54,7 +65,8 @@ public class FormController {
 		
 		binder.registerCustomEditor(String.class,"name",new NameUpperCaseEditor());
 		
-		binder.registerCustomEditor(Country.class,"country",countryPropertyEditor);
+		binder.registerCustomEditor(Country.class, "country",countryPropertyEditor);
+		binder.registerCustomEditor(Rol.class,     "roles",rolPropertyEditor);
 		
 	}
 	
@@ -62,7 +74,17 @@ public class FormController {
 	public String form(Model model) {
 		User user = new User();
 		user.setId("19.383.233-D");
-		model.addAttribute("user", user);
+		user.setName("JOrge Jacobo");
+		user.setEnable(true);
+		user.setSecretValue("Value secret ******");
+		
+		//DEFAULT VALUES COUNTRY
+		user.setCountry(new Country(1, "MX", "México"));
+		user.setRoles(Arrays.asList(
+				new Rol(1,"Administrado", "ROLE_ADMIN")
+				));
+
+		model.addAttribute("user", user);		
 		return "form";
 	}
 	
@@ -93,8 +115,7 @@ public class FormController {
 	public String getFormModel(
 			@Valid User user, //@ModelAttribute("newName") // change name to view 
 			BindingResult bindingResult, // result error and info validation
-			Model model,
-			SessionStatus sessionStatus // manager session 
+			Model model
 			) {
 		// userValidator.validate(user, bindingResult);
 		
@@ -107,7 +128,16 @@ public class FormController {
 			// Error manager automatic use thymeleaf
 			return "form";
 		}
-		model.addAttribute("user", user);
+		return "redirect:/show-result";
+	}
+	
+	// user is passed o view by @SessionAttribute no need model..set atributte..
+	@GetMapping("/show-result")
+	public String showResult(@SessionAttribute(name ="user", required =  false) User user ,Model model,SessionStatus sessionStatus) {
+		
+		if(user == null) {
+			return "redirect:/form";
+		}
 		sessionStatus.setComplete();
 		return "result";
 	}
@@ -115,6 +145,11 @@ public class FormController {
 	@ModelAttribute("countries")
 	public List<String> countries(){
 		return Arrays.asList("México","España","Chile", "Perú");
+	}
+	
+	@ModelAttribute("listRoles")
+	public List<Rol> listRoles(){
+		return this.rolService.list();
 	}
 	
 	@ModelAttribute("listCountries")
@@ -131,6 +166,28 @@ public class FormController {
 		countries.put("AR", "Perú");
 		countries.put("CO", "Colombia");
 		return countries;
-		
+	}
+	
+	@ModelAttribute("listRolesString") 
+	public List<String> listaRolesString(){
+		List<String> roles = new ArrayList<String>();
+		roles.add("ROLE_ADMIN");
+		roles.add("ROLE_USER");
+		roles.add("ROLE_MODERATOR");
+		return roles;
+	}
+	
+	@ModelAttribute("listRolesMap")
+	public Map<String, String> listaRolesMap(){
+		Map<String, String> roles = new HashMap<String, String>();
+		roles.put("ROLE_ADMIN", "Administrador");
+		roles.put("ROLE_USER", "Usuario");
+		roles.put("ROLE_MODERATOR", "Moderador");
+		return roles;
+	}
+	
+	@ModelAttribute("genders")
+	public List<String> gender(){
+		return Arrays.asList("Hombre", "Mujer");
 	}
 }

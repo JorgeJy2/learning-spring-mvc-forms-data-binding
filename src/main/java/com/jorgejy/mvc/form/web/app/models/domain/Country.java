@@ -1,7 +1,5 @@
 package com.jorgejy.mvc.form.web.app.models.domain;
 
-import javax.validation.constraints.NotNull;
-
 public class Country {
 	// @NotNull
 	private Integer id;
@@ -41,4 +39,10 @@ public class Country {
 		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return this.id.toString();
+	}
+
+	
 }

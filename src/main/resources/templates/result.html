@@ -3,23 +3,54 @@
 <head>
 <meta charset="UTF-8" />
 <title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
 </head>
 <body>
-	<h1>Result</h1>
-	<ul>
-		<li th:text="${user.name}"></li>
-		<li th:text="${user.firstName}"></li>
-		<li th:text="${user.username}"></li>
-		<li th:text="${user.password}"></li>
-		<li th:text="${user.email}"></li>
-		<li th:text="${user.id}"></li>
-		<li th:text="${user.count}"></li>
-		<li th:text="${#calendars.format(user.birthday, 'dd-MM-yyyy')}"></li>
-		<li th:text="${user.country.id}"></li>
-		<li th:text="${user.country.code}"></li>
-		<li th:text="${user.country.name}"></li>
-		
-	</ul>
 
+	<div class="container">
+	
+		<div class="py-5 text-center">
+			<h2>Resultados de formulario</h2>
+			<p class="lead">Datos enviados y procesados.</p>
+		</div>
+
+		<ul class="list-group">
+			<li class="list-group-item active" th:text="'Resultado'"></li>
+			<li class="list-group-item" th:text="${user.name}"></li>
+			<li class="list-group-item" th:text="${user.firstName}"></li>
+			<li class="list-group-item" th:text="${user.username}"></li>
+			<li class="list-group-item" th:text="${user.password}"></li>
+			<li class="list-group-item" th:text="${user.email}"></li>
+			<li class="list-group-item" th:text="${user.id}"></li>
+			<li class="list-group-item" th:text="${user.count}"></li>
+			<li class="list-group-item"
+				th:text="${#calendars.format(user.birthday, 'dd-MM-yyyy')}"></li>
+			<li class="list-group-item" th:text="${user.country.id}"></li>
+			<li class="list-group-item" th:text="${user.country.code}"></li>
+			<li class="list-group-item" th:text="${user.country.name}"></li>
+			<li class="list-group-item" th:text="'Habilitado: '+${user.enable}"></li>
+			<li class="list-group-item" th:text="${user.gender}"></li>
+			<li class="list-group-item" th:text="${user.secretValue}"></li>
+		</ul>
+
+		<ul class="list-group my-3">
+			<li class="list-group-item active" th:text="'Roles'"></li>
+			<li class="list-group-item" th:each="role: ${user.roles}"
+				th:text="${role.id} +' : '+ ${role.name} + ' / ' + ${role.code}"></li>
+		</ul>
+		
+		<a th:href="@{/form}" class="btn btn-success btn-block my-3"> Volver</a>
+		
+		<footer class="my-5 pt-5 text-muted text-center text-small">
+			<p class="mb-1">©2020 Jorge Jacobo</p>
+			<ul class="list-inline">
+				<li class="list-inline-item"><a
+					href="https://github.com/JorgeJy2">JorgeJy2 / GitHub</a></li>
+			</ul>
+		</footer>
+	</div>
 </body>
 </html>

@@ -1,8 +1,8 @@
 package com.jorgejy.mvc.form.web.app.models.domain;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -39,7 +39,7 @@ public class User {
 	@NotNull
 	// @DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Past
-	//@Future
+	// @Future
 	// defaul yyyy/MM/dd
 	private Date birthday;
 
@@ -48,10 +48,20 @@ public class User {
 	@Max(5000)
 	private Integer count;
 	// @NotEmpty
-	//@Valid
+	// @Valid
 	@NotNull
 	private Country country;
 
+	@NotEmpty
+	private List<Rol> roles;
+
+	private Boolean enable;
+	
+	@NotEmpty
+	private String gender;
+	
+	private String secretValue;
+	
 	public Integer getCount() {
 		return count;
 	}
@@ -124,5 +134,36 @@ public class User {
 		this.country = country;
 	}
 
-	
+	public List<Rol> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Rol> roles) {
+		this.roles = roles;
+	}
+
+	public Boolean getEnable() {
+		return enable;
+	}
+
+	public void setEnable(Boolean enable) {
+		this.enable = enable;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getSecretValue() {
+		return secretValue;
+	}
+
+	public void setSecretValue(String secretValue) {
+		this.secretValue = secretValue;
+	}
+
 }
